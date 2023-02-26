@@ -3,11 +3,11 @@ const path = require('path')
 const fs = require('fs')
 const mainpage = fs.readFileSync(`${__dirname}/webpages/index.html`)
 const signinpage = fs.readFileSync(`${__dirname}/webpages/sign_in.html`)
-const create_accountpage = fs.readFileSync(`${__dirname}/webpages/create_account.html`)
+const Register = fs.readFileSync(`${__dirname}/webpages/Register.html`)
 
 const   sever = http.createServer((req,res)=>{
     const path = req.url
-    console.log("url = ",path)
+    //console.log("url = ",path)
 
     if(path === "/" || path === "/home" ){
         res.end(mainpage)
@@ -15,8 +15,8 @@ const   sever = http.createServer((req,res)=>{
     else if(path === "/sign_in"){
         res.end(signinpage)
     }
-    else if(path === "/create_account"){
-        res.end(create_accountpage)
+    else if(path === "/Register"){
+        res.end(Register)
     }
     else{
         res.writeHead(404)
