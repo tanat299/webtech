@@ -61,5 +61,14 @@ app.post('/login',jsonParser,function(req,res,next){
       );
 })
 
+app.post('/authen',jsonParser,function(req,res,next){
+    try{
+        const token = req.headers.authorization.split(' ')[1]
+        const decoded = jwt.verify(token, keytoken);
+        res.json({status:'allow',decoded})
+    }catch(err){
+        res.json({status:'error',message: err.message})
+    }
+})
 
 app.listen(5000, () => console.log("Server is Running..."));
