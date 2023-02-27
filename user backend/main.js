@@ -72,3 +72,5 @@ app.post('/authen',jsonParser,function(req,res,next){
 })
 
 app.listen(5000, () => console.log("Server is Running..."));
+
+//npx nodemon main.js
