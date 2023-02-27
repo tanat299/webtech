@@ -6,7 +6,6 @@ const jsonParser = bodyParser.json()
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 const keytoken = 'webtokenhongsamood'
 
 app.use(cors())
@@ -49,7 +48,8 @@ app.post('/login',jsonParser,function(req,res,next){
           }
           bcrypt.compare(req.body.password, user[0].password, function(err, isLogin) {
             if(isLogin){
-                res.json({status:'success',message:'login success'})
+                const token = jwt.sign({email: user[0].email}, keytoken);
+                res.json({status:'success',message:'login success', token})
                 return
             }
             else{
