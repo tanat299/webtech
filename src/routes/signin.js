@@ -36,20 +36,20 @@ export default function SignIn() {
         email: data.get('email'),
         password: data.get('password'),
     }
-    fetch("http://localhost:3000/sign-in", {
-        method: "POST", // or 'PUT'
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jsondata),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log("Success:", data);
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    fetch("http://localhost:5000/login", {
+  method: "POST", // or 'PUT'
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(jsondata),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("Success:", data);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
   };
 
   return (
