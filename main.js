@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
+const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+const keytoken = 'webtokenhongsamood'
 
 app.use(cors())
 
@@ -31,38 +34,32 @@ app.post('/register',jsonParser,function(req,res,next){
     });  
 })
 
-app.post('/register',jsonParser,function(req,res,next){
-    
+app.post('/login',jsonParser,function(req,res,next){
+    connection.execute(
+        'SELECT * FROM user WHERE email=?',
+        [req.body.email],
+        function(err, user, fields) {
+          if (err){
+            res.json({status:'error',massage: err})
+            return
+          }
+          if(user.length == 0){
+            res.json({status:'error',massage: err})
+            return
+          }
+          bcrypt.compare(req.body.password, user[0].password, function(err, isLogin) {
+            if(isLogin){
+                res.json({status:'success',message:'login success'})
+                return
+            }
+            else{
+                res.json({status:'success',message:'login failed'})
+                return
+            }
+          });
+        }
+      );
 })
 
 
 app.listen(5000, () => console.log("Server is Running..."));
-
-/*
-const mainpage = fs.readFileSync(`${__dirname}/webpages/index.html`)
-const signinpage = fs.readFileSync(`${__dirname}/webpages/sign_in.html`)
-const Register = fs.readFileSync(`${__dirname}/webpages/Register.html`)
-
-const   sever = http.createServer((req,res)=>{
-    const path = req.url
-    //console.log("url = ",path)
-
-    if(path === "/" || path === "/home" ){
-        res.end(mainpage)
-    }
-    else if(path === "/sign_in"){
-        res.end(signinpage)
-    }
-    else if(path === "/Register"){
-        res.end(Register)
-    }
-    else{
-        res.writeHead(404)
-        res.end("Not Found")
-    }
-    
-})
-sever.listen(5000,()=>{
-    console.log("sever running")
-})
-*/
