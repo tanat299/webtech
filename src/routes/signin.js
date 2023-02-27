@@ -45,7 +45,13 @@ export default function SignIn() {
 })
   .then((response) => response.json())
   .then((data) => {
-    console.log("Success:", data);
+    if(data.message === 'login success'){
+      localStorage.setItem('token',data.token)
+      window.location ='/home'
+      alert('login success')
+    }else{
+      alert('login failed')
+    }
   })
   .catch((error) => {
     console.error("Error:", error);
