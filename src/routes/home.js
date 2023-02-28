@@ -46,9 +46,10 @@ export default function Album() {
             .then((response) => response.json())
             .then((data) => {
             if(data.status === 'allow'){
-                alert('Authon success')
+                //alert('Authon success')
             }else{
                 alert('Authon failed')
+                localStorage.removeItem('token')
                 window.location ='/sign-in'
             }
         })
@@ -56,6 +57,12 @@ export default function Album() {
         console.error("Error:", error);
         });
     }, [])
+    
+  const signout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem('token')
+    window.location ='/sign-in'
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,8 +105,8 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">sign-in</Button>
-              <Button variant="outlined">sign-up</Button>
+              <Button variant="contained"onClick={signout}>sign-out</Button>
+              
             </Stack>
           </Container>
         </Box>

@@ -37,6 +37,10 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
+  const signin = (event) => {
+    event.preventDefault();
+    window.location ='/sign-in'
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -103,7 +107,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="A Terms and Conditions agreement is where you let the public know the terms."
                 />
               </Grid>
             </Grid>
@@ -117,7 +121,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2"onClick={signin}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
