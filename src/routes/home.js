@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -34,6 +34,29 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function Album() {
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        fetch("http://localhost:5000/authen", {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+token
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            if(data.status === 'allow'){
+                alert('Authon success')
+            }else{
+                alert('Authon failed')
+                window.location ='/sign-in'
+            }
+        })
+        .catch((error) => {
+        console.error("Error:", error);
+        });
+    }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
