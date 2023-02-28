@@ -31,17 +31,34 @@ const theme = createTheme();
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
+    const data = new FormData(event.currentTarget)
+    const jsondata = {
       email: data.get('email'),
       password: data.get('password'),
-    });
-  };
-  const signin = (event) => {
-    event.preventDefault();
-    window.location ='/sign-in'
-  }
+      firstname:data.get('firstName'),
+      surname:data.get('lastName')
+    }
 
+    fetch("http://localhost:5000/register", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsondata),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if(data.status === 'pass'){
+          window.location ='/sign-in'
+          alert('register success')
+        }else{
+          alert('register failed')
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+      };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -121,7 +138,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2"onClick={signin}>
+                <Link href="/sign-in" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

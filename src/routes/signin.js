@@ -57,11 +57,7 @@ export default function SignIn() {
     console.error("Error:", error);
   });
   };
-  const signup = (event) => {
-    event.preventDefault();
-    window.location ='/sign-up'
-  }
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -115,7 +111,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2"onClick={signup}>
+                <Link href="/sign-up" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
